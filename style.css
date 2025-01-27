@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: grey;
+  padding: 1.25rem;
+  width: 75rem;
+  height: 28.125rem;
+  border-radius: 0.5rem;
+  overflow-x: visible;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+#addNoteBtn {
+  background-color: #1a6b97;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  width: 7rem;
+  cursor: pointer;
+  padding: 0.625rem;
+  height: 2.5rem;
+  margin: 1.25rem;
+}
+#addNoteBtn:hover {
+  opacity: 0.8;
+}
+
+.note-row {
+  background: #ffffff;
+  margin: 1.25rem;
+}
+
+.save-note {
+  background-color: #1a6b97;
+  color: #ffffff;
+  width: auto;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: none;
+}
+
+.save-note:hover {
+  opacity: 0.8;
+}
+
+.note-editor {
+  height: 15.625rem;
+  width: 15rem;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  overflow: auto;
+}
+
+.note-editor::-webkit-scrollbar {
+  display: none;
+}
+
+.note-controls {
+  height: 3.125rem;
+  width: 15rem;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px grey solid;
+}
+
+.note-controls div {
+  width: 1.875rem;
+  height: 1.875rem;
+  cursor: pointer;
+  text-align: center;
+  background: #eeeeee;
+  border-radius: 5px;
+  line-height: 1.875rem;
+}
+
+.note-controls img {
+  height: 1.5625rem;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
