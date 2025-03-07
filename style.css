@@ -19,6 +19,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  margin-top: 3.125rem;
 }
 
 #addNoteBtn {
@@ -31,6 +32,9 @@ body {
   padding: 0.625rem;
   height: 2.5rem;
   margin: 1.25rem;
+  position: fixed;
+  top: 10;
+  left: 10;
 }
 #addNoteBtn:hover {
   opacity: 0.8;
@@ -64,6 +68,7 @@ body {
   padding: 1.25rem;
   border-radius: 1.25rem;
   overflow: auto;
+  position: relative;
 }
 
 .note-editor::-webkit-scrollbar {

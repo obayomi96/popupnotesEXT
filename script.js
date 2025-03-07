@@ -28,9 +28,10 @@ function createNewNote(content = "", index = null) {
   noteDiv.classList.add("note-row");
 
   noteDiv.innerHTML = `
-    <div contenteditable="true" class="note-editor">${content}</div>
+    <div contenteditable="true" class="note-editor">${content}
+    </div>
     <div class="note-controls">
-      <button class="save-note">Save</button>
+      <button class="save-note" title="Or use ctrl+s">Save</button>
       <img src="images/trash_red.svg" class="delete-note" />
     </div>
   `;
@@ -51,6 +52,23 @@ function createNewNote(content = "", index = null) {
     }
     saveNotes();
     renderNotes();
+  });
+
+  // Save not with keyboard
+  document.addEventListener("keydown", (event) => {
+    if (event.ctrlKey && event.key === "s") {
+      event.preventDefault();
+      const noteContent = editor.innerHTML.trim();
+      if (index !== null) {
+        // Update the existing note
+        noteData[index] = noteContent;
+      } else if (noteContent && !noteData.includes(noteContent)) {
+        // Add a new note if not already present
+        noteData.push(noteContent);
+      }
+      saveNotes();
+      console.log("Notes saved using Ctrl+S");
+    }
   });
 
   // Delete the note
