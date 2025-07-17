@@ -1,6 +1,6 @@
 # Popup Notes - (Sticky notes for your computer.)
 
-> A lightweight, Private, note-taking desktop app for your personal computer.
+> A lightweight, Private, note-taking browser extension.
 
 ### Features
 1. Add as many popup notes as you like.
