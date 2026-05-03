@@ -61,39 +61,75 @@ function createNewNote(noteObj, isHidden = false, isSelected = false) {
       } data-note-id="${noteObj.id}">
       <div class="drag-handle" draggable="true">≡</div>
     </div>
+    <div class="formatting-toolbar">
+      <button class="fmt-btn" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+      <button class="fmt-btn" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+      <button class="fmt-btn" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+      <button class="fmt-btn" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+    </div>
     <div contenteditable="true" class="note-editor">${noteObj.content}</div>
     <div class="note-controls">
-      <button class="save-note" title="Or use ctrl+s">Save</button>
+      <div class="save-group">
+        <button class="save-note" title="Or use ctrl+s">Save</button>
+        <span class="auto-save-status"></span>
+      </div>
       <img src="images/trash_red.svg" class="delete-note" />
     </div>
   `;
 
   const editor = noteDiv.querySelector(".note-editor");
   const saveButton = noteDiv.querySelector(".save-note");
+  const autoSaveStatus = noteDiv.querySelector(".auto-save-status");
   const deleteButton = noteDiv.querySelector(".delete-note");
   const checkbox = noteDiv.querySelector(".note-checkbox");
   const dragHandle = noteDiv.querySelector(".drag-handle");
+  const fmtButtons = noteDiv.querySelectorAll(".fmt-btn");
 
-  // Save the note
-  saveButton.addEventListener("click", () => {
+  function persistNote() {
     const noteContent = editor.innerHTML.trim();
     const noteIndex = notes.findIndex(n => n.id === noteObj.id);
     if (noteIndex !== -1) {
       notes[noteIndex].content = noteContent;
       saveNotes();
     }
+  }
+
+  function showAutoSaved() {
+    autoSaveStatus.textContent = "Auto-saved";
+    autoSaveStatus.classList.add("visible");
+    setTimeout(() => autoSaveStatus.classList.remove("visible"), 2000);
+  }
+
+  // Formatting toolbar buttons
+  fmtButtons.forEach(btn => {
+    btn.addEventListener("mousedown", (e) => {
+      e.preventDefault(); // keep editor focus
+      document.execCommand(btn.dataset.cmd, false, null);
+    });
   });
 
-  // Save with keyboard
+  // Auto-save: 1 second after last keystroke
+  let autoSaveTimer = null;
+  editor.addEventListener("input", () => {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      persistNote();
+      showAutoSaved();
+    }, 1000);
+  });
+
+  // Save the note
+  saveButton.addEventListener("click", () => {
+    clearTimeout(autoSaveTimer);
+    persistNote();
+  });
+
+  // Save with keyboard (Ctrl+S)
   editor.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.key === "s") {
       event.preventDefault();
-      const noteContent = editor.innerHTML.trim();
-      const noteIndex = notes.findIndex(n => n.id === noteObj.id);
-      if (noteIndex !== -1) {
-        notes[noteIndex].content = noteContent;
-        saveNotes();
-      }
+      clearTimeout(autoSaveTimer);
+      persistNote();
     }
   });
 

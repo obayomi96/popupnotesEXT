@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Popup Notes",
   "short_name": "Popup Notes",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Sticky notes for your web browser",
   "action": {
     "default_popup": "index.html",
